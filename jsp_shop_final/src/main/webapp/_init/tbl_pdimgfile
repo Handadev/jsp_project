@@ -1,0 +1,7 @@
+create table tbl_pdimgfile(
+ino bigint(20) primary key auto_increment,
+pd_iname varchar(200) not null,
+pd_itype varchar(200) not null,
+pd_iregdate timestamp default current_timestamp,
+pno bigint(20) not null
+);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QnaMapper">
+	<insert id="add" parameterType="qvo">
+		insert into tbl_qna
+		(qna_category, qna_content, qna_pwd, qna_writer, pno) values
+		(#{qna_category}, #{qna_content}, #{qna_pwd}, #{qna_writer}, #{pno})
+	</insert>
+	<select id="list" resultType="qvo">
+		select qno, qna_category, qna_date,
+		qna_writer, pno from tbl_qna where pno=#{pno}
+	</select>
+	<select id="detail" parameterType="java.lang.Integer"
+		resultType="qvo">
+		select * from tbl_qna where qno=#{qno}
+	</select>
+	<update id="mod" parameterType="qvo">
+		update tbl_qna set
+		qna_category=#{qna_category}, qna_content=#{qna_content},
+		qna_pwd=#{qna_pwd} where qno=#{qno}
+	</update>
+	<delete id="del" parameterType="java.lang.Integer">
+		delete from tbl_qna where
+		qno=#{qno}
+	</delete>
+	<insert id="imgAdd" parameterType="java.util.List">
+		insert into tbl_qnaimgfile (qna_iname, qna_itype, qno) values
+		<foreach collection="list" item="qivo" separator=",">
+			(#{qivo.qna_iname}, #{qivo.qna_itype}, #{qivo.qno})
+		</foreach>
+	</insert>
+	<delete id="imgDel" parameterType="java.lang.Integer">
+		delete from tbl_qnaimgfile
+		where qno=#{qno}
+	</delete>
+	<select id="lastQno" resultType="java.lang.Integer">
+		select max(qno) from tbl_qna;
+	</select>
+	<select id="imgList" parameterType="java.lang.Integer"
+		resultType="qivo">
+		select qna_iname from tbl_qnaimgfile where qno=#{qno}
+	</select>
+</mapper>

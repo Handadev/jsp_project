@@ -1,0 +1,41 @@
+create table tbl_user(
+mno int(11) primary key auto_increment,
+id varchar(20) not null,
+pwd varchar(20) not null,
+name varchar(10) not null,
+birthday timestamp default current_timestamp on update current_timestamp,
+address varchar(50) not null,
+phonenumber varchar(11) not null,
+signupdate timestamp default current_timestamp, 
+pro_point int(11) default 0,
+grade tinyint(1) default 1,
+pno bigint(20),
+cpno int(11),
+qno bigint(20),
+rno bigint(20),
+email varchar(100) not null
+);
+
+// admin 계정은 등급이 무조건 9여야 함으로 이곳에서 DB에 따로 추가
+insert into tbl_user
+(id,pwd,name,birthday,address,phonenumber,grade)
+values("admin@admin.com","1111","admin",19990909,"강남","0000",9);
+
+
+// 이메일 없는 버전
+create table tbl_user(
+mno int(11) primary key auto_increment,
+id varchar(20) not null,
+pwd varchar(20) not null,
+name varchar(10) not null,
+birthday timestamp default current_timestamp on update current_timestamp,
+address varchar(50) not null,
+phonenumber varchar(11) not null,
+signupdate timestamp default current_timestamp, 
+pro_point int(11) default 0,
+grade tinyint(1) default 1,
+pno bigint(20),
+cpno int(11),
+qno bigint(20),
+rno bigint(20)
+);

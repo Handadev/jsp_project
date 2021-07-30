@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="couponMapper">
+	<insert id="add" parameterType="cvo">
+		insert into tbl_coupon (cp_name, cp_enddate, cp_discount)
+		values (#{cp_name},#{cp_enddate},#{cp_discount})
+	</insert>
+	<select id="list" resultType="cvo">
+		select cpno, cp_name, DATE_FORMAT(cp_enddate, '%Y-%m-%d') AS cp_enddate, cp_discount 
+		from tbl_coupon
+	</select>
+	<delete id="del" parameterType="java.lang.Integer">
+		delete from tbl_coupon where cpno=#{cpno}
+	</delete>
+	<update id="mod" parameterType="cvo">
+		update tbl_coupon set cp_name=#{cp_name}, cp_enddate=#{cp_enddate}, cp_discount=#{cp_discount}
+		where cpno=#{cpno}
+	</update>
+	<select id="detail" parameterType="java.lang.Integer" resultType="cvo">
+		select cpno, cp_name, DATE_FORMAT(cp_enddate, '%Y-%m-%d') AS cp_enddate, cp_discount 
+		from tbl_coupon where cpno=#{cpno}
+	</select>
+	<select id="last" resultType="java.lang.Integer">
+		select max(cpno) from tbl_coupon
+	</select>
+</mapper>

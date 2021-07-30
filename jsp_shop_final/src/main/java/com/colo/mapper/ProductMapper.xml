@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+	<insert id="add" parameterType="pvo">
+		insert into tbl_product(category,
+		title, content, imgfile, price,
+		point)
+		values (#{category},
+		#{title}, #{content}, #{imgfile}, #{price},
+		#{point})
+	</insert>
+
+	<select id="list" resultType="pvo">
+		select pno, title,category, imgfile, price
+		from tbl_product order by 1 desc
+	</select>
+
+	<select id="detail" parameterType="java.lang.Integer"
+		resultType="pvo">
+		select * from tbl_product where pno=#{pno}
+	</select>
+
+	<update id="modify" parameterType="pvo">
+		update tbl_product
+		set category=#{category}, 
+		title=#{title},
+		content=#{content},
+		imgfile=#{imgfile}, 
+		price=#{price}, 
+		point=#{point}
+		where pno=#{pno}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from tbl_product where
+		pno=#{pno}
+	</delete>
+
+	<select id="lastPno" resultType="java.lang.Integer">
+		select max(pno) from
+		tbl_product;
+	</select>
+	<insert id="imgAdd" parameterType="java.util.List">
+		insert into tbl_pdimgfile (pno, pd_iname, pd_itype) values
+		<foreach collection="list" item="pivo" separator=",">
+			(#{pivo.pno}, #{pivo.pd_iname}, #{pivo.pd_itype})
+		</foreach>
+	</insert>
+
+	<select id="imgList" parameterType="java.lang.Integer"
+		resultType="pivo">
+		select pd_iname from tbl_pdimgfile where pno=#{pno}
+	</select>
+
+	<delete id="imgDelete" parameterType="java.lang.Integer">
+		delete from tbl_pdimgfile
+		where pno=#{pno}
+	</delete>
+	
+	<select id="searchList" parameterType="java.lang.String" resultType="pvo">
+      select pno, category, title, imgfile, price from tbl_product
+      where title like "%"#{title}"%"   order by 1 desc  
+   </select>
+</mapper>

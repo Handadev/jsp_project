@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="usercouponMapper">
+  	<insert id="add" parameterType="ucvo">
+  		insert into tbl_usercoupon (mno, cpno)
+  		values (#{mno}, #{cpno})
+  	</insert>
+  	<select id="list" parameterType="java.lang.Integer" resultType="ucvo">
+  		select cpno from tbl_usercoupon where mno = #{mno}
+  	</select>
+  	<delete id="delete" parameterType="java.lang.Integer">
+  		delete from tbl_usercoupon where cpno = #{cpno}
+  	</delete>
+  	<select id="myCouponList" parameterType="java.lang.Integer" resultType="cvo">
+  		select tu.cpno, cp_name, cp_enddate, cp_discount from
+  		tbl_usercoupon tu inner join tbl_coupon tc
+  		on tu.cpno = tc.cpno
+		where mno = #{mno}
+  	</select>
+  </mapper>

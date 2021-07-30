@@ -1,0 +1,14 @@
+create table tbl_user(
+mno int(11) primary key auto_increment,
+id varchar(20) not null,
+pwd varchar(20) not null,
+name varchar(10) not null,
+birthday timestamp not null,
+address varchar(50) not null,
+phonenumber varchar(11) not null,
+signupdate timestamp default current_timestamp,
+pno bigint(20),
+cpno int(11),
+qno bigint(20),
+revno bigint(20)
+);

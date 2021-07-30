@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+	<typeAlias type="com.colo.domain.ProductVO" alias="pvo"/>
+	<typeAlias type="com.colo.domain.ProductImgVO" alias="pivo"/>
+	
+	<typeAlias type="com.colo.domain.UserVO" alias="uvo"/>
+	<typeAlias type="com.colo.domain.UserCouponVO" alias="ucvo"/>
+	<typeAlias type="com.colo.domain.UserOrderListVO" alias="ovo" />
+	<typeAlias type="com.colo.domain.CouponVO" alias="cvo"/>
+	<typeAlias type="com.colo.domain.CartVO" alias="cartvo" />
+	
+	<typeAlias type="com.colo.domain.QnaVO" alias="qvo" />
+	<typeAlias type="com.colo.domain.QnaImgVO" alias="qivo" />
+	<typeAlias type="com.colo.domain.ReviewVO" alias="rvo" />
+	<typeAlias type="com.colo.domain.ReviewImgVO" alias="rivo" />
+	<typeAlias type="com.colo.domain.ReviewMyVO" alias="rmvo" />
+</typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/shop"/>
+        <property name="username" value="root"/>
+        <property name="password" value="mysql"/>
+        <property name="poolMaximumActiveConnections" value="20"/>
+        <property name="poolMaximumIdleConnections" value="20"/>
+        <property name="poolMaximumCheckoutTime" value="20000"/>
+        <property name="poolPingEnabled" value="true"/>
+        <property name="poolPingQuery" value="select 1"/>
+        <property name="poolPingConnectionsNotUsedFor" value="10000"/>
+        <property name="poolTimeToWait" value="15000"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/colo/mapper/CouponMapper.xml"/>
+    <mapper resource="com/colo/mapper/UserMapper.xml"/>
+    <mapper resource="com/colo/mapper/QnaMapper.xml"/>
+    <mapper resource="com/colo/mapper/UsercouponMapper.xml"/>
+    <mapper resource="com/colo/mapper/UserOrderListMapper.xml" />
+    <mapper resource="com/colo/mapper/ProductMapper.xml"/>
+	<mapper resource="com/colo/mapper/CartMapper.xml"/>
+	<mapper resource="com/colo/mapper/ReviewMapper.xml" />
+  </mappers> 
+</configuration>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CartMapper">
+	<insert id="add" parameterType="cartvo">
+		insert into tbl_cart (pno,
+		imgfile, title, price, mno)
+		values (#{pno}, #{imgfile},
+		#{title},#{price}, #{mno})
+	</insert>
+
+	<select id="list" resultType="cartvo"
+		parameterType="java.lang.Integer">
+		select tc.cartno, tc.pno,
+		tc.imgfile, tc.title, tc.price,
+		tc.quantity, tu.mno
+		from tbl_user tu inner join tbl_cart tc
+		on tu.mno =
+		tc.mno
+		where tu.mno = #{mno}
+		order by 1 desc;
+	</select>
+
+	<select id="payList" resultType="cartvo"
+		parameterType="java.lang.Integer">
+		select tc.cartno, tc.pno,
+		tc.imgfile, tc.title, tc.price,
+		tc.quantity, tu.mno
+		from tbl_user tu inner join tbl_cart tc
+		on tu.mno =
+		tc.mno
+		where tu.mno = #{mno}
+		order by 1 desc;
+	</select>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from tbl_cart where
+		cartno=#{cartno};
+	</delete>
+
+	<delete id="payDelete" parameterType="java.lang.Integer">
+		delete from tbl_cart where
+		mno=#{mno};
+	</delete>
+
+	<update id="quantityIncrement" parameterType="java.lang.Integer">
+		update tbl_cart set
+		quantity=quantity+1 where cartno=#{cartno};
+	</update>
+
+	<update id="quantityDecrement" parameterType="java.lang.Integer">
+		update tbl_cart set
+		quantity=quantity-1 where cartno=#{cartno};
+	</update>
+
+	<update id="quantityIncrement2" parameterType="java.lang.Integer">
+		update tbl_cart set quantity=quantity+1 where
+		pno=#{pno};
+	</update>
+
+	<update id="cartUpdate" parameterType="cartvo">
+		update tbl_cart set
+		imgfile=#{imgfile}, title=#{title}, price=#{price}
+		where pno=#{pno}
+	</update>
+
+	<select id="duple" parameterType="com.colo.domain.MnoPnoVO"
+		resultType="java.lang.Integer">
+		<!-- select count(pno) from tbl_cart where pno=#{pno} -->
+		select count(pno) from tbl_cart where mno=#{mno} and pno=#{pno}
+	</select>
+
+</mapper>

@@ -1,0 +1,21 @@
+create table tbl_cart(
+cartno bigint(20) primary key auto_increment,
+pno bigint(20) not null,
+imgfile varchar(2000) not null,
+title varchar(100) not null,
+price int(11) not null,
+quantity int(11) not null
+);
+
+// 1. 멤버와 연결을 위해 mno 칼럼 추가
+// 2. quantity default 값 1로 수정
+
+create table tbl_cart(
+cartno bigint(20) primary key auto_increment,
+pno bigint(20) not null,
+imgfile varchar(2000) not null,
+title varchar(100) not null,
+price int(11) not null,
+quantity int(11) default 1,
+mno int(11) not null
+);

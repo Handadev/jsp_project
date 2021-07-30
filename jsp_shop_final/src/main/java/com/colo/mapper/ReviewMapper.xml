@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+	<insert id="add" parameterType="rvo">
+		insert into tbl_review
+		(rev_content, rev_writer, pno)
+		values (#{rev_content}, #{rev_writer},
+		#{pno})
+	</insert>
+	<select id="list" parameterType="java.lang.Integer" resultType="rvo">
+		select * from tbl_review where pno=#{pno}
+	</select>
+	<select id="detail" parameterType="java.lang.Integer"
+		resultType="rvo">
+		select * from tbl_review where rno=#{rno}
+	</select>
+	<update id="mod" parameterType="rvo">
+		update tbl_review set
+		rev_content=#{rev_content} where rno=#{rno}
+	</update>
+	<delete id="del" parameterType="java.lang.Integer">
+		delete from tbl_review where
+		rno=#{rno}
+	</delete>
+	<insert id="imgAdd" parameterType="java.util.List">
+		insert into tbl_revimgfile (rev_iname, rev_itype, rno) values
+		<foreach collection="list" item="rivo" separator=",">
+			(#{rivo.rev_iname}, #{rivo.rev_itype}, #{rivo.rno})
+		</foreach>
+	</insert>
+	<delete id="imgDel" parameterType="java.lang.Integer">
+		delete from tbl_revimgfile
+		where rno=#{rno}
+	</delete>
+	<select id="lastRno" resultType="java.lang.Integer">
+		select max(rno) from tbl_review
+	</select>
+	<select id="imgList" resultType="rivo">
+		select rino, rev_iname, rno from
+		tbl_revimgfile
+	</select>
+	<select id="imgName" parameterType="java.lang.Integer"
+		resultType="rivo">
+		select rev_iname from tbl_revimgfile where rno=#{rno}
+	</select>
+	<select id="myReview" parameterType="java.lang.String" resultType="rmvo">
+		select rno, tr.pno, title, price,
+		rev_content, rev_date, rev_writer from
+		tbl_review tr inner join tbl_product tp
+		on tr.pno=tp.pno
+		where rev_writer=#{rev_writer}
+		order by rno desc
+	</select>
+</mapper>
